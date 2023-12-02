@@ -1,11 +1,6 @@
-package spec
+package config
 
-/*
- copy from : https://github.com/soDLA-publishment/soDLA/blob/soDLA_beta/src/main/scala/nvdla/spec/nv_small_config.scala
- */
-
-class nv_small_config
-{
+class nv_small_config {
   val FEATURE_DATA_TYPE_INT8 = true
   val WEIGHT_DATA_TYPE_INT8 = true
   val WEIGHT_COMPRESSION_ENABLE = false

@@ -1,8 +1,4 @@
-package spec
-
-/*
- copy from the https://github.com/soDLA-publishment/soDLA/blob/soDLA_beta/src/main/scala/nvdla/spec/nv_large_config.scala
- */
+package config
 
 class nv_large_config
 {
