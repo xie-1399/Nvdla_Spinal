@@ -14,17 +14,27 @@ package cdma
 import DefineSim.SpinalSim.{PrefixComponent, RtlConfig}
 import spinal.core._
 import spinal.lib._
-import spec._
+
+/* register control interface */
+case class reg_control_if() extends Bundle{
+  val wr_en = in Bool()
+  val wr_data = in UInt(32 bits)
+  val offset = in UInt(12 bits)
+  val rd_data = out(UInt(32 bits))
+}
+
 
 class NV_NVDLA_CDMA_single_reg extends PrefixComponent{
 
   val io = new Bundle{
+    /* the clock domain using the core clock */
     val reg = reg_control_if()
-
+    // Writable register flop/trigger outputs
     val producer = out Bool()
     val arb_weight = out UInt(4 bits)
     val arb_wmb = out UInt(4 bits)
 
+    // Read-only register inputs
     val flush_done = in Bool()
     val consumer = in Bool()
     val status_0 = in UInt(2 bits)
@@ -54,7 +64,6 @@ class NV_NVDLA_CDMA_single_reg extends PrefixComponent{
   io.arb_weight := RegNextWhen(io.reg.wr_data(3 downto 0),init = U"b1111",cond = nvdla_cdma_s_arbiter_0_wren)
   io.arb_wmb := RegNextWhen(io.reg.wr_data(19 downto 16),init = U"b0011",cond = nvdla_cdma_s_arbiter_0_wren)
   io.producer := RegNextWhen(io.reg.wr_data(0),init = False,cond = nvdla_cdma_s_pointer_0_wren)
-
 }
 
 object NV_NVDLA_CDMA_single_reg extends App{

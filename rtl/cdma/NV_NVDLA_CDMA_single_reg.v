@@ -1,14 +1,14 @@
 // Generator : SpinalHDL v1.9.4    git head : 270018552577f3bb8e5339ee2583c9c22d324215
 // Component : NV_NVDLA_CDMA_single_reg
-// Git hash  : 0cde351c5d300a33a4e894fb9bfe1d0ec574ccb6
+// Git hash  : 6f3a68849e40026fd84346cb7090e42be5f339dc
 
 `timescale 1ns/1ps
 
 module NV_NVDLA_CDMA_single_reg (
-  output wire [31:0]   reg_rd_data,
-  input  wire [11:0]   reg_offset,
-  input  wire [31:0]   reg_wr_data,
   input  wire          reg_wr_en,
+  input  wire [31:0]   reg_wr_data,
+  input  wire [11:0]   reg_offset,
+  output wire [31:0]   reg_rd_data,
   output wire          producer,
   output wire [3:0]    arb_weight,
   output wire [3:0]    arb_wmb,
