@@ -1,5 +1,12 @@
 package NVDLA.apb2csb
 
+// ================================================================
+// NVDLA Open Source Project
+//
+// Copyright(c) 2016 - 2017 NVIDIA Corporation.  Licensed under the
+// NVDLA Open Hardware License; Check "LICENSE" which comes with
+// this distribution for more information.
+// ================================================================
 import DefineSim.SpinalSim.{PrefixComponent, RtlConfig}
 import spinal.core._
 import spinal.lib._
@@ -53,7 +60,7 @@ class NV_NVDLA_apb2csb extends PrefixComponent{
 
     when(io.nvdla2csb.valid && rd_trans_low){
       rd_trans_low := False
-    }elsewhen(io.csb2nvdla.ready & rd_trans_vld){
+    }elsewhen(io.csb2nvdla.ready && rd_trans_vld){
       rd_trans_low := True
     }
 
@@ -74,5 +81,5 @@ class NV_NVDLA_apb2csb extends PrefixComponent{
 
 
 object NV_NVDLA_apb2csb extends App{
-  val rtl = new RtlConfig().GenRTL(new NV_NVDLA_apb2csb(),pruned = false)
+  val rtl = new RtlConfig(path = "rtl/apb2csb").GenRTL(new NV_NVDLA_apb2csb(),pruned = false)
 }

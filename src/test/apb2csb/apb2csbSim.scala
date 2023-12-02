@@ -18,7 +18,6 @@ class apb2csbSim extends AnyFunSuite{
         val clockDomain = dut.csbClock
         clockDomain.forkStimulus(10)
 
-
         dut.io.apb.PSEL #= 0
         dut.io.apb.PENABLE #= false
         dut.io.csb2nvdla.ready #= true
@@ -37,15 +36,18 @@ class apb2csbSim extends AnyFunSuite{
         clockDomain.onSamplings {
           val write = dut.io.apb.PSEL.toBigInt == 1 && dut.io.apb.PWRITE.toBoolean && dut.io.apb.PREADY.toBoolean && dut.io.apb.PENABLE.toBoolean
           if (write) {
-            println("write into")
             memory += (dut.io.apb.PADDR.toBigInt -> dut.io.apb.PWDATA.toBigInt)
           }
         }
 
-        driver.write(8 ,BigInt(100))
-        println(read(8))
+        for(idx <- 0 until 100){
+          val randAddr = Random.nextInt(4096)
+          val randData = Random.nextInt(4096)
+          driver.write(randAddr ,randData)
+          val rsp = read(randAddr)
+          assert(rsp == randData)
+        }
         simSuccess()
-
     }
 
   }
