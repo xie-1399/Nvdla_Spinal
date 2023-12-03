@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.9.4    git head : 270018552577f3bb8e5339ee2583c9c22d324215
 // Component : NV_NVDLA_CDMA_shared_buffer
-// Git hash  : e8247006974f01f499a02b4ce7fad5c2ba9dc983
+// Git hash  : 2a7a9115f04f923f669a4065a6a4de269f321e13
 
 `timescale 1ns/1ps
 
@@ -12278,7 +12278,7 @@ module NV_NVDLA_CDMA_shared_buffer (
   );
   assign dc2sbuf_p0_wr_bsel = dc2sbuf_p_wr_0_addr_payload[7 : 4];
   assign img2sbuf_p0_wr_bsel = img2sbuf_p_wr_0_addr_payload[7 : 4];
-  assign dc2sbuf_p1_wr_bsel = img2sbuf_p_wr_1_addr_payload[7 : 4];
+  assign dc2sbuf_p1_wr_bsel = dc2sbuf_p_wr_1_addr_payload[7 : 4];
   assign img2sbuf_p1_wr_bsel = img2sbuf_p_wr_1_addr_payload[7 : 4];
   assign dc2sbuf_p0_wr_sel_0 = ((dc2sbuf_p0_wr_bsel == 4'b0000) && dc2sbuf_p_wr_0_addr_valid);
   assign dc2sbuf_p0_wr_sel_1 = ((dc2sbuf_p0_wr_bsel == 4'b0001) && dc2sbuf_p_wr_0_addr_valid);
@@ -12580,8 +12580,6 @@ module NV_NVDLA_CDMA_shared_buffer (
       shareBuffer_sbuf_p1_re_norm_d1_13 <= 1'b0;
       shareBuffer_sbuf_p1_re_norm_d1_14 <= 1'b0;
       shareBuffer_sbuf_p1_re_norm_d1_15 <= 1'b0;
-      shareBuffer_sbuf_p0_rd_en_d1 <= 1'b0;
-      shareBuffer_sbuf_p1_rd_en_d1 <= 1'b0;
     end else begin
       shareBuffer_sbuf_p0_re_norm_d1_0 <= sbuf_p0_re_0;
       shareBuffer_sbuf_p1_re_norm_d1_0 <= sbuf_p1_re_0;
@@ -12615,12 +12613,12 @@ module NV_NVDLA_CDMA_shared_buffer (
       shareBuffer_sbuf_p1_re_norm_d1_14 <= sbuf_p1_re_14;
       shareBuffer_sbuf_p0_re_norm_d1_15 <= sbuf_p0_re_15;
       shareBuffer_sbuf_p1_re_norm_d1_15 <= sbuf_p1_re_15;
-      shareBuffer_sbuf_p0_rd_en_d1 <= (dc2sbuf_p_rd_0_addr_valid || img2sbuf_p_rd_0_addr_valid);
-      shareBuffer_sbuf_p1_rd_en_d1 <= (dc2sbuf_p_rd_1_addr_valid || img2sbuf_p_rd_1_addr_valid);
     end
   end
 
   always @(posedge clk) begin
+    shareBuffer_sbuf_p0_rd_en_d1 <= (dc2sbuf_p_rd_0_addr_valid || img2sbuf_p_rd_0_addr_valid);
+    shareBuffer_sbuf_p1_rd_en_d1 <= (dc2sbuf_p_rd_1_addr_valid || img2sbuf_p_rd_1_addr_valid);
     if(shareBuffer_sbuf_p0_rd_en_d1) begin
       shareBuffer_sbuf_p0_rdat_d2 <= shareBuffer_sbuf_p0_rdat;
     end

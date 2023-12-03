@@ -19,7 +19,7 @@ import rams._
  * the default : 16 * 16 * 8 byte RAMs as local shared buffers
  * 4 ports : 2 ports are used for dc data and 2 ports are used for the img data
  * only support the dc and img data into the buffer
- * Todo rebuild it */
+ * look the simulation and get use of */
 
 /* write interface from the sbuf */
 case class nvdla_wr_if(addrWidth:Int,dataWidth:Int) extends Bundle with IMasterSlave {
@@ -63,7 +63,7 @@ class NV_NVDLA_CDMA_shared_buffer(config:nvdlaConfig)  extends PrefixComponent {
 
   val dc2sbuf_p0_wr_bsel = io.dc2sbuf_p_wr(0).addr.payload(b1 - 1 downto b0)
   val img2sbuf_p0_wr_bsel = io.img2sbuf_p_wr(0).addr.payload(b1 - 1 downto b0)
-  val dc2sbuf_p1_wr_bsel = io.img2sbuf_p_wr(1).addr.payload(b1 - 1 downto b0)
+  val dc2sbuf_p1_wr_bsel = io.dc2sbuf_p_wr(1).addr.payload(b1 - 1 downto b0)
   val img2sbuf_p1_wr_bsel = io.img2sbuf_p_wr(1).addr.payload(b1 - 1 downto b0)
 
   /* the high 4 bits is used to choose which ram */
@@ -141,9 +141,8 @@ class NV_NVDLA_CDMA_shared_buffer(config:nvdlaConfig)  extends PrefixComponent {
       sbuf_p0_re_norm_d1(i) := sbuf_p0_re(i)
       sbuf_p1_re_norm_d1(i) := sbuf_p1_re(i)
     }
-    val sbuf_p0_rd_en_d1 = RegNext(io.dc2sbuf_p_rd(0).addr.valid | io.img2sbuf_p_rd(0).addr.valid, False)
-    val sbuf_p1_rd_en_d1 = RegNext(io.dc2sbuf_p_rd(1).addr.valid | io.img2sbuf_p_rd(1).addr.valid, False)
-
+    val sbuf_p0_rd_en_d1 = RegNext(io.dc2sbuf_p_rd(0).addr.valid | io.img2sbuf_p_rd(0).addr.valid)
+    val sbuf_p1_rd_en_d1 = RegNext(io.dc2sbuf_p_rd(1).addr.valid | io.img2sbuf_p_rd(1).addr.valid)
 
     /* ram stage2 */
     val sbuf_p0_rdat = (0 to config.CDMA_SBUF_NUMBER - 1).map {
@@ -156,8 +155,10 @@ class NV_NVDLA_CDMA_shared_buffer(config:nvdlaConfig)  extends PrefixComponent {
 
     val sbuf_p0_rdat_d2 = RegNextWhen(sbuf_p0_rdat, sbuf_p0_rd_en_d1)
     val sbuf_p1_rdat_d2 = RegNextWhen(sbuf_p1_rdat, sbuf_p1_rd_en_d1)
+
     io.dc2sbuf_p_rd(0).data := sbuf_p0_rdat_d2
     io.img2sbuf_p_rd(0).data := sbuf_p0_rdat_d2
+
     io.dc2sbuf_p_rd(1).data := sbuf_p1_rdat_d2
     io.img2sbuf_p_rd(1).data := sbuf_p1_rdat_d2
   }
