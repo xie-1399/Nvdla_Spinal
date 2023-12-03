@@ -5,10 +5,11 @@ import DefineSim.SpinalSim.{PrefixComponent, RtlConfig}
 import spinal.core._
 import spinal.lib._
 import config._
-/*  */
+import spinal.core.sim._
+/* this is copy from https://github.com/soDLA-publishment/soDLA/blob/soDLA_beta/src/main/scala/nvdla/rams/nv_ram_rws.scala */
+
 
 class nv_ram_rws(config:nvdlaConfig,depth:Int,width:Int,asic:Boolean = false) extends PrefixComponent{
-
   val io = new Bundle{
     /* control */
     val re = in Bool()
@@ -37,6 +38,7 @@ class nv_ram_rws(config:nvdlaConfig,depth:Int,width:Int,asic:Boolean = false) ex
     }
     else{
       val mem = Mem(Bits(width bits),depth)
+      if(config.NVDLA_ASIC_MEM_SIM) mem.simPublic()
       mem.write(io.wa,io.di,enable = io.we)
       io.dout := mem.readSync(io.ra,enable = io.re)
     }

@@ -786,5 +786,6 @@ class nvdlaConfig extends xxifConfiguration{
   val NVDLA_MEM_RD_RSP  = ( NVDLA_DMAIF_BW + NVDLA_MEM_MASK_BIT )
   val NVDLA_MEM_WR_REQ  = ( NVDLA_DMAIF_BW + NVDLA_MEM_MASK_BIT + 1 )
   val NVDLA_MEM_RD_REQ  = ( NVDLA_MEM_ADDRESS_WIDTH + 15 )
+  val NVDLA_ASIC_MEM_SIM = true
 
 }
