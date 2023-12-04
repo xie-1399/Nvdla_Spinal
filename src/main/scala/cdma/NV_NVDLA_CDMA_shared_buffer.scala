@@ -19,7 +19,8 @@ import rams._
  * the default : 16 * 16 * 8 byte RAMs as local shared buffers
  * 4 ports : 2 ports are used for dc data and 2 ports are used for the img data
  * only support the dc and img data into the buffer
- * look the simulation and get use of */
+ * look the simulation and get use of
+ * write can not write the same ram at the same time   read also can not read the same ram at the same time*/
 
 /* write interface from the sbuf */
 case class nvdla_wr_if(addrWidth:Int,dataWidth:Int) extends Bundle with IMasterSlave {
