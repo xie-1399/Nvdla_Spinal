@@ -1,4 +1,5 @@
-package cdma
+package nocif.MCIF
+
 
 // ================================================================
 // NVDLA Open Source Project
@@ -8,9 +9,20 @@ package cdma
 // this distribution for more information.
 // ================================================================
 
+import DefineSim.SpinalSim.PrefixComponent
+import config._
 
-class NV_NVDLA_CDMA_IMG_pack {
+import spinal.core._
+import spinal.sim._
 
+class NV_NVDLA_MCIF_CSB_reg(config:nvdlaConfig) extends PrefixComponent{
+  val io = new Bundle{
+
+    val idle = in Bool() /* Read-only register inputs */
+
+    val reg = 
+
+  }
 
 
 }

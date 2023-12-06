@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.9.4    git head : 270018552577f3bb8e5339ee2583c9c22d324215
 // Component : NV_NVDLA_CDMA_single_reg
-// Git hash  : 6f3a68849e40026fd84346cb7090e42be5f339dc
+// Git hash  : e0645783429e89a8c531b1d563bf15794f3ef1f9
 
 `timescale 1ns/1ps
 
@@ -24,9 +24,9 @@ module NV_NVDLA_CDMA_single_reg (
   wire       [3:0]    _zz_HC;
   wire       [3:0]    _zz_H4;
   wire       [3:0]    _zz_H0;
-  wire       [11:0]   _zz__zz_reg_rd_data;
+  wire       [14:0]   _zz__zz_reg_rd_data;
   wire       [0:0]    _zz__zz_reg_rd_data_1;
-  wire       [14:0]   _zz__zz_reg_rd_data_2;
+  wire       [11:0]   _zz__zz_reg_rd_data_2;
   wire       [0:0]    _zz__zz_reg_rd_data_3;
   wire       [30:0]   _zz__zz_reg_rd_data_4;
   wire       [0:0]    _zz__zz_reg_rd_data_5;
@@ -56,9 +56,9 @@ module NV_NVDLA_CDMA_single_reg (
   assign _zz_H4 = 4'b0100;
   assign _zz_H0 = 4'b0000;
   assign _zz__zz_reg_rd_data_1 = 1'b0;
-  assign _zz__zz_reg_rd_data = {11'd0, _zz__zz_reg_rd_data_1};
+  assign _zz__zz_reg_rd_data = {14'd0, _zz__zz_reg_rd_data_1};
   assign _zz__zz_reg_rd_data_3 = 1'b0;
-  assign _zz__zz_reg_rd_data_2 = {14'd0, _zz__zz_reg_rd_data_3};
+  assign _zz__zz_reg_rd_data_2 = {11'd0, _zz__zz_reg_rd_data_3};
   assign _zz__zz_reg_rd_data_5 = 1'b0;
   assign _zz__zz_reg_rd_data_4 = {30'd0, _zz__zz_reg_rd_data_5};
   assign _zz__zz_reg_rd_data_7 = 1'b0;
@@ -79,13 +79,13 @@ module NV_NVDLA_CDMA_single_reg (
   assign nvdla_cdma_s_status_0_wren = ((reg_offset == H0) && reg_wr_en);
   always @(*) begin
     if((reg_offset == H8)) begin
-        _zz_reg_rd_data = {_zz__zz_reg_rd_data,{arb_wmb,{_zz__zz_reg_rd_data_2,producer}}};
+        _zz_reg_rd_data = {{{producer,_zz__zz_reg_rd_data},arb_wmb},_zz__zz_reg_rd_data_2};
     end else if((reg_offset == HC)) begin
-        _zz_reg_rd_data = {_zz__zz_reg_rd_data_4,flush_done};
+        _zz_reg_rd_data = {flush_done,_zz__zz_reg_rd_data_4};
     end else if((reg_offset == H4)) begin
-        _zz_reg_rd_data = {_zz__zz_reg_rd_data_6,{consumer,{_zz__zz_reg_rd_data_8,producer}}};
+        _zz_reg_rd_data = {{{producer,_zz__zz_reg_rd_data_6},consumer},_zz__zz_reg_rd_data_8};
     end else if((reg_offset == H0)) begin
-        _zz_reg_rd_data = {_zz__zz_reg_rd_data_10,{status_1,{_zz__zz_reg_rd_data_12,status_0}}};
+        _zz_reg_rd_data = {{{status_0,_zz__zz_reg_rd_data_10},status_1},_zz__zz_reg_rd_data_12};
     end else begin
         _zz_reg_rd_data = 32'h00000000;
     end

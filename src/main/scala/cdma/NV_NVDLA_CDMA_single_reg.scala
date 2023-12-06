@@ -12,6 +12,7 @@ package cdma
  */
 
 import DefineSim.SpinalSim.{PrefixComponent, RtlConfig}
+import DefineUntils.Untils.CatInorder
 import spinal.core._
 import spinal.lib._
 
@@ -54,10 +55,10 @@ class NV_NVDLA_CDMA_single_reg extends PrefixComponent{
   val nvdla_cdma_s_status_0_wren = (io.reg.offset === H0) & io.reg.wr_en
 
   io.reg.rd_data := io.reg.offset.mux(
-    H8 -> Cat(U"b0".resize(12),io.arb_wmb,U"b0".resize(15),io.producer).asUInt,
-    HC -> Cat(U"b0".resize(31),io.flush_done).asUInt,
-    H4 -> Cat(U"b0".resize(15),io.consumer,U"b0".resize(15),io.producer).asUInt,
-    H0 -> Cat(U"b0".resize(14),io.status_1,U"b0".resize(14),io.status_0).asUInt,
+    H8 -> CatInorder(U"b0".resize(12),io.arb_wmb,U"b0".resize(15),io.producer).asUInt,
+    HC -> CatInorder(U"b0".resize(31),io.flush_done).asUInt,
+    H4 -> CatInorder(U"b0".resize(15),io.consumer,U"b0".resize(15),io.producer).asUInt,
+    H0 -> CatInorder(U"b0".resize(14),io.status_1,U"b0".resize(14),io.status_0).asUInt,
     default -> U(0,32 bits)
   )
 
