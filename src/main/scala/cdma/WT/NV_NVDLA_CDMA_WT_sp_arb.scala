@@ -1,9 +1,8 @@
-package cdma
+package cdma.WT
 
 import DefineSim.SIMCFG
 import DefineSim.SpinalSim.PrefixComponent
 import DefineUntils.Untils.CatInorder
-import spinal.lib._
 import spinal.core._
 
 // ================================================================

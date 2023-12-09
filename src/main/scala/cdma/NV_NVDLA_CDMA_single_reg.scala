@@ -15,15 +15,7 @@ import DefineSim.SpinalSim.{PrefixComponent, RtlConfig}
 import DefineUntils.Untils.CatInorder
 import spinal.core._
 import spinal.lib._
-
-/* register control interface */
-case class reg_control_if() extends Bundle{
-  val wr_en = in Bool()
-  val wr_data = in UInt(32 bits)
-  val offset = in UInt(12 bits)
-  val rd_data = out(UInt(32 bits))
-}
-
+import common._
 
 class NV_NVDLA_CDMA_single_reg extends PrefixComponent{
 

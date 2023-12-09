@@ -15,12 +15,17 @@ import config._
 import spinal.core._
 import spinal.sim._
 
+
+case class mcif_reg_flop_outputs(config:nvdlaConfig) extends Bundle {
+
+}
+
 class NV_NVDLA_MCIF_CSB_reg(config:nvdlaConfig) extends PrefixComponent{
   val io = new Bundle{
 
     val idle = in Bool() /* Read-only register inputs */
 
-    val reg = 
+    //val reg =
 
   }
 

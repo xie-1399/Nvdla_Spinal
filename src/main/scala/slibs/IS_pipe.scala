@@ -7,9 +7,6 @@ import spinal.core._
 import spinal.lib._
 import config._
 
-
-/* Todo build the Pipe later */
-
 class IS_pipe(dataWidth:Int,config:nvdlaConfig) extends PrefixComponent{
 
   val io = new Bundle{
